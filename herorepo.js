@@ -4,36 +4,39 @@ class HeroRepo {
   }
 
   // Methods
-  createTable() {
+  async createTable() {
     const sql = `
     CREATE TABLE IF NOT EXISTS heroes (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       pin INTEGER NOT NULL)`;
-    return this.dao.run(sql);
+    return await this.dao.run(sql);
   }
-  create(name, pin) {
+  async create(name, pin) {
     return this.dao.run(`INSERT INTO heroes (name, pin) VALUES (?, ?)`, [
       name,
       pin
     ]);
   }
-  update(hero) {
+  async update(hero) {
     const { id, name, pin } = hero;
-    return this.dao.run(`UPDATE heroes SET name = ?, PIN = ? WHERE id = ?`, [
+    return await this.dao.run(`UPDATE heroes SET name = ?, PIN = ? WHERE id = ?`, [
       name,
       pin,
       id
     ]);
   }
-  delete(id) {
-    return this.dao.run(`DELETE FROM heroes WHERE id = ?`, [id]);
+  async delete(id) {
+    return await this.dao.run(`DELETE FROM heroes WHERE id = ?`, [id]);
   }
-  getById(id) {
-    return this.dao.get(`SELECT * FROM heroes WHERE id = ?`, [id]);
+  async getById(id) {
+    return await this.dao.get(`SELECT * FROM heroes WHERE id = ?`, [id]);
   }
-  getAll() {
-    return this.dao.all(`SELECT * FROM events`);
+  async getAll() {
+    return await this.dao.all(`SELECT * FROM events`);
+  }
+  async getEvents(id) {
+    return await this.dao.all(`SELECT * FROM events WHERE heroId = ?`, [id]);
   }
 }
 
