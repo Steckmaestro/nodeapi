@@ -21,6 +21,29 @@ class EventRepo {
       [name, description, created, heroId]
     );
   }
+  update(event) {
+    const { id, name, description, created, heroId } = event;
+    return this.dao.run(
+      `
+      UPDATE events 
+      SET name = ?,
+      description = ?,
+      created = ?
+      heroId = ?
+      WHERE id = ?
+    `,
+      [name, description, created, heroId, id]
+    );
+  }
+  delete(id) {
+    return this.dao.run(`DELETE FROM events WHERE id = ?`, [id]);
+  }
+  getById(id) {
+    return this.dao.get(`SELECT * FROM events WHERE id = ?`, [id]);
+  }
+  getAll() {
+    return this.dao.all(`SELECT * FROM events`)
+  }
 }
 
 module.exports = EventRepo;

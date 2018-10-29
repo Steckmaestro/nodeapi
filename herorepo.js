@@ -2,6 +2,7 @@ class HeroRepo {
   constructor(dao) {
     this.dao = dao;
   }
+
   // Methods
   createTable() {
     const sql = `
@@ -25,8 +26,14 @@ class HeroRepo {
       id
     ]);
   }
+  delete(id) {
+    return this.dao.run(`DELETE FROM heroes WHERE id = ?`, [id]);
+  }
+  getById(id) {
+    return this.dao.get(`SELECT * FROM heroes WHERE id = ?`, [id]);
+  }
   getAll() {
-    return this.dao.all(`SELECT * FROM heroes`);
+    return this.dao.all(`SELECT * FROM events`);
   }
 }
 

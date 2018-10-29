@@ -15,11 +15,6 @@ function main() {
     .then(() => {
       heroRepo.create('Steck', '123');
     })
-    .then((data) => {
-      projectId = data.id
-      console.log(projectId);
-      heroRepo.getAll();
-    })
     .then(data => {
       console.log(data);
     });
