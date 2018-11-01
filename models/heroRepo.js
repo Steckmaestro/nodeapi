@@ -33,7 +33,7 @@ class HeroRepo {
     return await this.dao.get(`SELECT * FROM heroes WHERE id = ?`, [id]);
   }
   async getAll() {
-    return await this.dao.all(`SELECT * FROM events`);
+    return await this.dao.all(`SELECT * FROM heroes`);
   }
   async getEvents(id) {
     return await this.dao.all(`SELECT * FROM events WHERE heroId = ?`, [id]);

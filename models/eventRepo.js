@@ -8,31 +8,31 @@ class EventRepo {
       CREATE TABLE IF NOT EXISTS events (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
-        description TEXT,
-        created TEXT,
+        created DATE,
+        love INTEGER DEFAULT 0,
         heroId INTEGER,
         CONSTRAINT hero_fk_id FOREIGN KEY (heroId)
           REFERENCES heroes(id) ON UPDATE CASCADE ON DELETE CASCADE)`;
     return await this.dao.run(sql);
   }
-  async create(name, description, created, heroId) {
+  async create(name, created, love, heroId) {
     return this.dao.run(
-      `INSERT INTO events (name, description, created, heroId) VALUES (?, ?, ?, ?)`,
-      [name, description, created, heroId]
+      `INSERT INTO events (name, created, love, heroId) VALUES (?, ?, ?, ?)`,
+      [name, created, love, heroId]
     );
   }
   async update(event) {
-    const { id, name, description, created, heroId } = event;
+    const { id, name, created, heroId } = event;
     return await this.dao.run(
       `
       UPDATE events 
       SET name = ?,
-      description = ?,
-      created = ?
+      created = ?,
+      love = ?,
       heroId = ?
       WHERE id = ?
     `,
-      [name, description, created, heroId, id]
+      [name, created, love, heroId, id]
     );
   }
   async delete(id) {
@@ -42,7 +42,13 @@ class EventRepo {
     return await this.dao.get(`SELECT * FROM events WHERE id = ?`, [id]);
   }
   async getAll() {
-    return await this.dao.all(`SELECT * FROM events`)
+    return await this.dao.all(`SELECT * FROM events`);
+  }
+  async sendLove(id) {
+    return await this.dao.run(
+      `UPDATE events SET love = love + 1 WHERE id = ?`,
+      [id]
+    );
   }
 }
 

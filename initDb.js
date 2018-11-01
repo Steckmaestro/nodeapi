@@ -1,13 +1,5 @@
-const AppDAO = require('./dao');
-const HeroRepo = require('./herorepo');
-const EventRepo = require('./eventrepo');
 
-function main() {
-  const dao = new AppDAO('./database.sqlite3');
-  const heroData = { name: 'Steck', pin: '12345' };
-  const heroRepo = new HeroRepo(dao);
-  const eventRepo = new EventRepo(dao);
-  var heroId;
+function initDb(heroRepo, eventRepo) {
 
   const createTables = async () => {
     let heroTable = await heroRepo.createTable();
@@ -18,13 +10,16 @@ function main() {
   createTables();
 }
 
+module.exports = initDb;
+
+
 //   heroRepo
 //     .createTable()
 //     .then(() => {
 //       eventRepo.createTable();
 //     })
 //     .then(() => {
-//       return heroRepo.create(heroData.name, heroData.pin);
+//       eturrn heroRepo.create(heroData.name, heroData.pin);
 //     })
 //     .then(data => {
 //       console.log(data);
@@ -73,4 +68,4 @@ function main() {
 //     });
 // }
 
-main();
+
