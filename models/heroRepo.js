@@ -9,12 +9,14 @@ class HeroRepo {
     CREATE TABLE IF NOT EXISTS heroes (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
+      avatar TEXT NOT NULL,
       pin INTEGER NOT NULL)`;
     return await this.dao.run(sql);
   }
-  async create(name, pin) {
-    return this.dao.run(`INSERT INTO heroes (name, pin) VALUES (?, ?)`, [
+  async create(name, avatar, pin) {
+    return this.dao.run(`INSERT INTO heroes (name, avatar, pin) VALUES (?, ?, ?)`, [
       name,
+      avatar,
       pin
     ]);
   }

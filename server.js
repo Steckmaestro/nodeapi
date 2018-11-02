@@ -45,9 +45,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Heroes routes
 app.post('/heroes', async (req, res) => {
   try {
-    const { name, pin } = req.body;
+    const { name, avatar, pin } = req.body;
     console.log(req.body);
-    const hero = await heroRepo.create(name, pin);
+    const hero = await heroRepo.create(name, avatar, pin);
     res.status(200).send(hero);
   } catch (e) {
     console.log('Error: ', e);

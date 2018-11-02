@@ -1,5 +1,4 @@
 const sqlite3 = require('sqlite3');
-
 class AppDAO {
   constructor(dbFilePath) {
     this.db = new sqlite3.Database(dbFilePath, err => {
