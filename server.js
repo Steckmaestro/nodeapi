@@ -63,6 +63,24 @@ app.get('/heroes', async (req, res) => {
     res.status(500).send(e);
   }
 });
+app.get('/heroes/withmostlove', async (req, res) => {
+  try {
+    const stats = await heroRepo.getWithMostLove();
+    res.status(200).send(stats);
+  } catch (e) {
+    console.log('Error: ', e);
+    res.status(500).send(e);
+  }
+});
+app.get('/heroes/withmostcoffee', async (req, res) => {
+  try {
+    const stats = await heroRepo.getWithMostCoffees();
+    res.status(200).send(stats);
+  } catch (e) {
+    console.log('Error: ', e);
+    res.status(500).send(e);
+  }
+});
 app.get('/heroes/:id', async (req, res) => {
   try {
     const heroes = await heroRepo.getById(req.params.id);
