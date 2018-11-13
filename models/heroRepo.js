@@ -9,21 +9,21 @@ class HeroRepo {
     CREATE TABLE IF NOT EXISTS heroes (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
-      avatar TEXT NOT NULL,
-      pin INTEGER NOT NULL)`;
+      avatar TEXT NOT NULL
+      )`;
     return await this.dao.run(sql);
   }
-  async create(name, avatar, pin) {
+  async create(name, avatar) {
     return this.dao.run(
-      `INSERT INTO heroes (name, avatar, pin) VALUES (?, ?, ?)`,
-      [name, avatar, pin]
+      `INSERT INTO heroes (name, avatar) VALUES (?, ?)`,
+      [name, avatar]
     );
   }
   async update(hero) {
-    const { id, name, pin } = hero;
+    const { id, name } = hero;
     return await this.dao.run(
-      `UPDATE heroes SET name = ?, PIN = ? WHERE id = ?`,
-      [name, pin, id]
+      `UPDATE heroes SET name = ? WHERE id = ?`,
+      [name, pin]
     );
   }
   async delete(id) {
