@@ -107,7 +107,6 @@ app.delete('/heroes/:id', async (req, res) => {
     res.status(500).send(e);
   }
 });
-
 // Events routes
 app.post('/events', async (req, res) => {
   try {
